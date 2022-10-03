@@ -2,6 +2,8 @@
 
 This card game is built in React Native using react-hooks.
 
+### <a href="https://i.diawi.com/KLbprX">Install (Android)</a>
+
 ### Screenshots
 <div style="display: flex;">
 <img src="https://github.com/mdmush/rn-cardgame/blob/master/screenshots/1.jpg" width="200">
