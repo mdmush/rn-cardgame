@@ -204,12 +204,12 @@ const GameScreen = ({navigation}) => {
       <View className="flex-row justify-center items-center mx-[10px] mb-[20px]">
         <Pressable
           onPress={onBackPress}
-          className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[6px] border-[#a17400]">
+          className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[4px] border-[#a17400]">
           <Text style={styles.buttonText}>Go Back</Text>
         </Pressable>
         <Pressable
           onPress={handleRestart}
-          className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[6px] border-[#a17400]">
+          className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[4px] border-[#a17400]">
           <Text style={styles.restartText}>Restart</Text>
         </Pressable>
       </View>
