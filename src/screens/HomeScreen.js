@@ -3,12 +3,12 @@ import {SafeAreaView, Text, Pressable} from 'react-native';
 
 function HomeScreen({navigation}) {
   return (
-    <SafeAreaView className="flex-1 items-center justify-center">
-      <Text className="text-[28px] font-bold text-black">Welcome to Card Game</Text>
+    <SafeAreaView className="flex-1 items-center justify-center bg-[#fcba03]">
+      <Text className="text-[40px] text-center font-bold text-black">Welcome to Card Game</Text>
       <Pressable
-        className="rounded-full bg-[#1890ff] items-center justify-center px-[16px] py-[8px] mt-[12px]"
+        className="rounded-full bg-[#fff] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[6px] border-[#a17400]"
         onPress={() => navigation.navigate('GameScreen')}>
-        <Text className="text-[16px] text-white">Start Game</Text>
+        <Text className="text-[18px] text-black">Start Game</Text>
       </Pressable>
     </SafeAreaView>
   );

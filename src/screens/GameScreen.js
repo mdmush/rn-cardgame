@@ -202,10 +202,10 @@ const GameScreen = ({navigation}) => {
         </View>
       </Modal>
       <View style={styles.topContainer}>
-        <Pressable style={styles.buttonContainer} onPress={onBackPress}>
+        <Pressable onPress={onBackPress} className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[6px] border-[#a17400]">
           <Text style={styles.buttonText}>Go Back</Text>
         </Pressable>
-        <Pressable onPress={handleRestart} style={styles.restartButton}>
+        <Pressable onPress={handleRestart} className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[6px] border-[#a17400]">
           <Text style={styles.restartText}>Restart</Text>
         </Pressable>
       </View>
