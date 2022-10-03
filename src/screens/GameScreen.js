@@ -2,13 +2,11 @@ import React, {useState, useEffect, useRef, useReducer} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
-  Button,
   View,
   Modal,
   Pressable,
+  StyleSheet,
 } from 'react-native';
 import Card from '../components/card';
 import reducer from '../reducer.js';
@@ -93,15 +91,13 @@ const GameScreen = ({navigation}) => {
 
   const handleCardClick = index => {
     // Have a maximum of 2 items in array at once.
+    dispatch({type: 'increment'});
     if (openCards.length === 1) {
       setOpenCards(prev => [...prev, index]);
-      // increase the moves once we opened a pair
-      dispatch({type: 'increment'});
       disable();
     } else {
       // If two cards are already open, we cancel timeout set for flipping cards back
       clearTimeout(timeout.current);
-      dispatch({type: 'increment'});
       setOpenCards([index]);
     }
   };
@@ -113,15 +109,6 @@ const GameScreen = ({navigation}) => {
       setShowModal(true);
     }
   };
-
-  useEffect(() => {
-    if (showModal) {
-      setTimeout(() => {
-        setShowModal(false);
-        navigation.goBack();
-      }, 1000);
-    }
-  }, [showModal]);
 
   const disable = () => {
     setShouldDisableAllCards(true);
@@ -149,17 +136,13 @@ const GameScreen = ({navigation}) => {
     navigation.goBack();
   };
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-row justify-center items-center mx-[10px] my-[20px]">
-        <View style={styles.scoreContainer}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            STEP : {state.count}
-          </Text>
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.topContainer}>
+        <Text style={styles.headerText}>STEP : {state.count}</Text>
       </View>
 
       <ScrollView
-        style={styles.cardListContainer}
+        style={styles.container}
         contentContainerStyle={{
           justifyContent: 'space-around',
           flexDirection: 'row',
@@ -186,31 +169,55 @@ const GameScreen = ({navigation}) => {
         onRequestClose={() => {
           setShowModal(false);
         }}>
-        <View style={styles.centeredView}>
+        <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <Text>Hurray 🎊 You completed the challenge</Text>
-            <Text>You completed the Game in {state.count} moves</Text>
-            <View style={styles.buttonWrapper}>
-              <Pressable style={styles.buttonContainer} onPress={onBackPress}>
-                <Text style={styles.buttonText}>Go Back</Text>
+            <Text style={styles.modalText}>
+              Hurray 🎊 You completed the challenge
+            </Text>
+            <Text style={styles.modalText}>
+              You completed the Game in {state.count} moves
+            </Text>
+            <View style={styles.modalButtonContainer}>
+              <Pressable
+                onPress={onBackPress}
+                style={[
+                  styles.backButton,
+                  {
+                    backgroundColor: '#fff',
+                    paddingHorizontal: 18,
+                    paddingVertical: 10,
+                  },
+                ]}>
+                <Text
+                  style={[styles.buttonText, {fontSize: 12, color: '#fcba03'}]}>
+                  Go Back
+                </Text>
               </Pressable>
-              <Pressable style={styles.buttonContainer} onPress={handleRestart}>
-                <Text style={styles.buttonText}>Restart</Text>
+              <Pressable
+                onPress={handleRestart}
+                style={[
+                  styles.restartButton,
+                  {
+                    backgroundColor: '#fff',
+                    paddingHorizontal: 40,
+                    paddingVertical: 10,
+                  },
+                ]}>
+                <Text
+                  style={[styles.buttonText, {fontSize: 12, color: '#fcba03'}]}>
+                  Restart
+                </Text>
               </Pressable>
             </View>
           </View>
         </View>
       </Modal>
-      <View className="flex-row justify-center items-center mx-[10px] mb-[20px]">
-        <Pressable
-          onPress={onBackPress}
-          className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[4px] border-[#a17400]">
+      <View style={styles.bottomContainer}>
+        <Pressable onPress={onBackPress} style={styles.backButton}>
           <Text style={styles.buttonText}>Go Back</Text>
         </Pressable>
-        <Pressable
-          onPress={handleRestart}
-          className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[4px] border-[#a17400]">
-          <Text style={styles.restartText}>Restart</Text>
+        <Pressable onPress={handleRestart} style={styles.restartButton}>
+          <Text style={styles.buttonText}>Restart</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -218,10 +225,28 @@ const GameScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  cardListContainer: {
+  container: {
     flex: 1,
   },
-  centeredView: {
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    marginHorizontal: 10,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginHorizontal: 10,
+  },
+  modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -229,7 +254,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: '#fcba03',
     borderRadius: 20,
     paddingHorizontal: 35,
     paddingVertical: 20,
@@ -241,39 +266,49 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    borderColor: '#a17400',
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
   },
-  scoreContainer: {
+  modalText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  modalButtonContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  backButton: {
+    borderRadius: 30,
+    backgroundColor: '#fcba03',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    marginTop: 30,
+    marginLeft: 8,
+    borderColor: '#a17400',
+    borderRightWidth: 6,
+    borderBottomWidth: 8,
   },
   restartButton: {
     borderRadius: 30,
-    backgroundColor: '#1890ff',
+    backgroundColor: '#fcba03',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 60,
-    paddingVertical: 8,
-    marginLeft: 20,
-  },
-  restartText: {
-    fontSize: 16,
-    color: 'white',
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  buttonContainer: {
-    borderRadius: 30,
-    backgroundColor: '#1890ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 50,
+    paddingVertical: 14,
+    marginTop: 30,
+    marginLeft: 8,
+    borderColor: '#a17400',
+    borderRightWidth: 6,
+    borderBottomWidth: 8,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
+    fontWeight: 'bold',
   },
 });
 

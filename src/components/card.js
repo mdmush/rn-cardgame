@@ -56,30 +56,54 @@ const Card = ({testID, value, isFlipped, onClick, isDisabled, isInactive}) => {
   };
   return (
     <Pressable
-      className="w-[120px] h-[140px] mt-[8px] rounded-[8px]"
+      style={styles.container}
       onPress={onClickHandler}
       testID={testID}>
       <Animated.View
-        className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center rounded-[8px] bg-[#f97316] border-r-4 border-b-4 border-[#9c460b]"
-        style={[styles.cardContainer, frontAnimatedStyle]}>
-        <Text className="text-[20px] font-bold text-white">{value}</Text>
+        style={[styles.cardContainer, styles.cardBack, frontAnimatedStyle]}>
+        <Text style={styles.cardText}>{value}</Text>
       </Animated.View>
 
       <Animated.View
-        className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center rounded-[8px] bg-[#fcba03] border-r-4 border-b-4 border-[#a17400]"
-        style={[styles.cardContainer, backAnimatedStyle]}>
-        <Text className="text-[20px] font-bold text-white">?</Text>
+        style={[styles.cardContainer, styles.cardFront, backAnimatedStyle]}>
+        <Text style={styles.cardText}>?</Text>
       </Animated.View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    backfaceVisibility: 'hidden',
+  container: {
+    width: 120,
+    height: 140,
+    marginTop: 8,
+    borderRadius: 8,
   },
-  flipCard: {
-    transform: [{rotateY: '180deg'}],
+  cardContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backfaceVisibility: 'hidden',
+    borderRadius: 8,
+    borderColor: '#a17400',
+    borderRightWidth: 4,
+    borderBottomWidth: 4,
+  },
+  cardBack: {
+    backgroundColor: '#f97316',
+    borderColor: '#9c460b',
+  },
+  cardFront: {
+    backgroundColor: '#fcba03',
+  },
+  cardText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 

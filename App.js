@@ -1,11 +1,11 @@
 import Navigator from './src/Navigator';
-import {TailwindProvider} from 'tailwindcss-react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
-    <TailwindProvider>
+    <NavigationContainer>
       <Navigator />
-    </TailwindProvider>
+    </NavigationContainer>
   );
 };
 
