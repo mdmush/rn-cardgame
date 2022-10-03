@@ -116,10 +116,10 @@ const GameScreen = ({navigation}) => {
 
   useEffect(() => {
     if (showModal) {
-      // setTimeout(() => {
-      //     setShowModal(false)
-      //     navigation.goBack();
-      // }, 1000);
+      setTimeout(() => {
+        setShowModal(false);
+        navigation.goBack();
+      }, 1000);
     }
   }, [showModal]);
 
@@ -149,8 +149,8 @@ const GameScreen = ({navigation}) => {
     navigation.goBack();
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.topContainer}>
+    <SafeAreaView className="flex-1">
+      <View className="flex-row justify-center items-center mx-[10px] my-[20px]">
         <View style={styles.scoreContainer}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
             STEP : {state.count}
@@ -201,11 +201,15 @@ const GameScreen = ({navigation}) => {
           </View>
         </View>
       </Modal>
-      <View style={styles.topContainer}>
-        <Pressable onPress={onBackPress} className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[6px] border-[#a17400]">
+      <View className="flex-row justify-center items-center mx-[10px] mb-[20px]">
+        <Pressable
+          onPress={onBackPress}
+          className="rounded-full bg-[#fcba03] items-center justify-center px-[24px] py-[14px] mt-[30px] border-b-[8px] border-r-[6px] border-[#a17400]">
           <Text style={styles.buttonText}>Go Back</Text>
         </Pressable>
-        <Pressable onPress={handleRestart} className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[6px] border-[#a17400]">
+        <Pressable
+          onPress={handleRestart}
+          className="rounded-full bg-[#fcba03] items-center justify-center px-[50px] py-[14px] mt-[30px] ml-8 border-b-[8px] border-r-[6px] border-[#a17400]">
           <Text style={styles.restartText}>Restart</Text>
         </Pressable>
       </View>
@@ -214,16 +218,6 @@ const GameScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  topContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
-    marginHorizontal: 10,
-  },
   cardListContainer: {
     flex: 1,
   },
@@ -259,7 +253,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 60,
     paddingVertical: 8,
-    marginLeft: 20
+    marginLeft: 20,
   },
   restartText: {
     fontSize: 16,
